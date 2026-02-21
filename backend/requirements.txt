@@ -4,6 +4,7 @@ scikit-learn
 xgboost
 flask
 flask-cors
+joblib
+tqdm
 matplotlib
 seaborn
-joblib

@@ -148,6 +148,3 @@ Suhas Lankapalli
 P. Akash  
 
 ---
-
-🛡 Counter Generator  
-(Add Counter Generator Screenshot Here)

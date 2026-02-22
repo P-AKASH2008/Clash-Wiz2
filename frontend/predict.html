@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Battle Prediction</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="overlay">
+    <div class="predict-container">
+
+        <h1 class="title">Battle Prediction</h1>
+
+        <div class="deck-wrapper">
+
+            <div class="deck">
+                <h2>Team A</h2>
+                <div class="slots" id="deckA"></div>
+            </div>
+
+            <div class="deck">
+                <h2>Team B</h2>
+                <div class="slots" id="deckB"></div>
+            </div>
+
+        </div>
+
+        <h2>Select Cards</h2>
+        <div class="card-library" id="cardLibrary"></div>
+
+        <button id="predictBtn">Predict Battle</button>
+
+        <div id="resultBox" class="result-box"></div>
+
+    </div>
+</div>
+
+<script src="predict.js"></script>
+</body>
+</html>

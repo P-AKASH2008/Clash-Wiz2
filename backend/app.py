@@ -1,9 +1,9 @@
-proba = model.predict_proba([match_vector])[0]
+from backend.extensions import create_app
+from backend.routes import register_routes
+from backend.config import DEBUG, HOST, PORT
 
-deckA_prob = float(proba[1])
-deckB_prob = float(proba[0])
+app = create_app()
+register_routes(app)
 
-return jsonify({
-    "deckA_win_probability": round(deckA_prob * 100, 2),
-    "deckB_win_probability": round(deckB_prob * 100, 2)
-})
+if __name__ == "__main__":
+    app.run(debug=DEBUG, host=HOST, port=PORT)

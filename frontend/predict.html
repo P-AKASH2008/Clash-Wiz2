@@ -3,37 +3,46 @@
 <head>
     <title>Battle Prediction</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/predict.css">
 </head>
+
 <body>
+
 <div class="background"></div>
 
-<div class="overlay">
-    <div class="predict-container">
+<div class="predict-page">
 
-        <h1 class="title">Battle Prediction</h1>
+    <h1 class="predict-title">Battle Prediction</h1>
 
-        <div class="deck-wrapper">
+    <div class="arena">
 
-            <div class="deck">
-                <h2>Team A</h2>
-                <div class="slots" id="deckA"></div>
-            </div>
-
-            <div class="deck">
-                <h2>Team B</h2>
-                <div class="slots" id="deckB"></div>
-            </div>
-
+        <!-- TEAM A -->
+        <div class="team team-a">
+            <h2>Team A</h2>
+            <div class="deck-grid" id="deckA"></div>
         </div>
 
-        <h2>Select Cards</h2>
-        <div class="card-library" id="cardLibrary"></div>
-
-        <button id="predictBtn">Predict Battle</button>
-
-        <div id="resultBox" class="result-box"></div>
+        <!-- TEAM B -->
+        <div class="team team-b">
+            <h2>Team B</h2>
+            <div class="deck-grid" id="deckB"></div>
+        </div>
 
     </div>
+
+    <!-- Card Search -->
+    <div class="card-search">
+        <input type="text" id="cardSearch" placeholder="Search card name...">
+        <div id="searchResults" class="search-results"></div>
+    </div>
+
+    <!-- Predict Button -->
+    <div class="predict-btn-area">
+        <button id="predictBtn">Predict Battle</button>
+    </div>
+
+    <div id="resultBox" class="result-box"></div>
+
 </div>
 
 <script src="predict.js"></script>

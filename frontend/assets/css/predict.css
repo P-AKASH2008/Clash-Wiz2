@@ -1,74 +1,108 @@
-body {
-    margin: 0;
-    font-family: 'Trebuchet MS', sans-serif;
-    background: url("assets/images/background.png") no-repeat center center fixed;
-    background-size: cover;
-}
-
-.overlay {
-    height: 100vh;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container {
-    text-align: center;
+/* Page layout */
+.predict-page {
     color: white;
+    text-align: center;
+    padding-top: 40px;
 }
 
-h1 {
-    font-size: 50px;
-    margin-bottom: 40px;
+/* Title */
+.predict-title {
+    font-size: 48px;
+    margin-bottom: 20px;
 }
 
-.deck-row {
+/* Split arena */
+.arena {
     display: flex;
-    gap: 80px;
-    margin-bottom: 40px;
+    justify-content: space-between;
+    padding: 40px;
 }
 
-.deck-box {
-    width: 300px;
-    padding: 20px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 15px;
+/* Each team side */
+.team {
+    width: 45%;
 }
 
-.deck-box input {
+.team h2 {
+    margin-bottom: 20px;
+}
+
+/* 4x2 grid */
+.deck-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 90px);
+    grid-template-rows: repeat(2, 110px);
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Empty slot */
+.slot {
+    width: 90px;
+    height: 110px;
+    border: 3px dashed rgba(255,255,255,0.6);
+    border-radius: 12px;
+    background: rgba(0,0,0,0.35);
+}
+
+/* Card image */
+.slot img {
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    margin-top: 10px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
-.button-area {
+/* Search area */
+.card-search {
     margin-top: 20px;
 }
 
-button {
-    padding: 15px 35px;
-    margin: 10px;
+#cardSearch {
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+}
+
+/* Search results dropdown */
+.search-results {
+    max-height: 250px;
+    overflow-y: auto;
+    width: 300px;
+    margin: auto;
+    background: rgba(0,0,0,0.85);
+    border-radius: 10px;
+}
+
+.search-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.search-item:hover {
+    background: gold;
+    color: black;
+}
+
+/* Predict button */
+.predict-btn-area {
+    margin-top: 25px;
+}
+
+#predictBtn {
+    padding: 12px 35px;
     font-size: 18px;
     border-radius: 12px;
     border: none;
-    cursor: pointer;
     background: linear-gradient(to bottom, #ffd700, #ff9900);
     font-weight: bold;
-    box-shadow: 0 5px 0 #cc7a00;
-    transition: 0.2s ease;
+    cursor: pointer;
 }
 
-button:hover {
-    transform: translateY(-3px);
-}
-
+/* Result */
 .result-box {
-    margin-top: 30px;
+    margin-top: 20px;
     font-size: 22px;
-    background: rgba(0,0,0,0.4);
-    padding: 20px;
-    border-radius: 15px;
 }

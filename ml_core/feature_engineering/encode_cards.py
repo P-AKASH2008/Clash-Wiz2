@@ -1,11 +1,25 @@
 import pandas as pd
+import csv
 from tqdm import tqdm
+from elixir_values import deck_elixir
+from role_features import deck_type_counts
 
 print("Loading dataset...")
 df = pd.read_pickle("../data/raw/clash_matches.pkl")
-df = df.sample(200000, random_state=42)
 
-# ---- Step 1: get all unique cards ----
+SAMPLE_SIZE = 1000000
+df = df.sample(SAMPLE_SIZE, random_state=42)
+
+# -------- REMOVE MIRROR MATCHES (VERY IMPORTANT) --------
+print("Removing mirror matches...")
+df = df[df["deckA"] != df["deckB"]]
+print("Remaining matches:", len(df))
+
+# ---------------------------------------------------
+# STEP 1: Build global card index (VERY IMPORTANT)
+# ---------------------------------------------------
+print("Building card index...")
+
 all_cards = set()
 
 for deck in df["deckA"]:
@@ -15,39 +29,66 @@ for deck in df["deckB"]:
     all_cards.update(deck)
 
 all_cards = sorted(list(all_cards))
-
-# map each card id to index
-card_to_index = {card:i for i,card in enumerate(all_cards)}
+card_to_index = {card: i for i, card in enumerate(all_cards)}
 
 print("Total cards:", len(card_to_index))
 
-# ---- Step 2: encoding function ----
+# Save mapping (backend will reuse this later!)
+pd.Series(card_to_index).to_json("../data/processed/card_index.json")
+
+# ---------------------------------------------------
+# STEP 2: Deck encoder
+# ---------------------------------------------------
 def encode_deck(deck):
-    vector = [0]*len(card_to_index)
-    for card in deck:
-        vector[card_to_index[card]] = 1
-    return vector
+    vec = [0] * len(card_to_index)
+    for c in deck:
+        idx = card_to_index.get(c)
+        if idx is not None:
+            vec[idx] = 1
+    return vec
 
-# ---- Step 3: build dataset ----
-features = []
-labels = []
+# ---------------------------------------------------
+# STEP 3: STREAM WRITE CSV (KEY IMPROVEMENT)
+# ---------------------------------------------------
+output_path = "../data/processed/final_dataset.csv"
 
-print("Encoding matches...")
+print("Encoding & writing dataset...")
 
-for _, row in tqdm(df.iterrows(), total=len(df)):
-    deckA_vec = encode_deck(row["deckA"])
-    deckB_vec = encode_deck(row["deckB"])
+with open(output_path, "w", newline="") as f:
+    writer = csv.writer(f)
 
-    match_vector = deckA_vec + deckB_vec
+    # header
+    header = [f"f{i}" for i in range(len(card_to_index)*2 + 9)]
+    header.append("winner")
+    writer.writerow(header)
+    
+    for _, row in tqdm(df.iterrows(), total=len(df)):
 
-    features.append(match_vector)
-    labels.append(row["label"])
+        deckA = row["deckA"]
+        deckB = row["deckB"]
 
-# ---- Step 4: save dataset ----
-X = pd.DataFrame(features)
-X["winner"] = labels
+        deckA_vec = encode_deck(deckA)
+        deckB_vec = encode_deck(deckB)
 
-print("Saving processed dataset...")
-X.to_csv("../data/processed/final_dataset.csv", index=False)
+        # ---- elixir features ----
+        elixirA = deck_elixir(deckA)
+        elixirB = deck_elixir(deckB)
 
-print("DONE ✅")
+        # ---- role features ----
+        tA, sA, bA = deck_type_counts(deckA)
+        tB, sB, bB = deck_type_counts(deckB)
+
+        match_vector = (
+            deckA_vec +
+            deckB_vec +
+            [
+                elixirA, elixirB, elixirA - elixirB,
+                tA, sA, bA,
+                tB, sB, bB,
+                tA - tB, sA - sB, bA - bB
+            ]
+        )
+
+        writer.writerow(match_vector + [row["label"]])
+
+print("DONE ✅ Dataset created successfully")

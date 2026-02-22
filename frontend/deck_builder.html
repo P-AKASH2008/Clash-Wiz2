@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deck Builder</title>
+
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+
+    <!-- main css -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/predict.css">
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="predict-page">
+
+    <h1 class="predict-title">Generate Counter Deck</h1>
+
+    <div class="arena">
+
+        <!-- Enemy Deck -->
+        <div class="team">
+            <h2>Enemy Deck</h2>
+            <div class="deck-grid" id="enemyDeck"></div>
+        </div>
+
+        <!-- Counter Deck Result -->
+        <div class="team">
+            <h2>Recommended Counter</h2>
+            <div class="deck-grid" id="counterDeck"></div>
+        </div>
+
+    </div>
+
+    <!-- Search -->
+    <div class="card-search">
+        <input type="text" id="cardSearch" placeholder="Search enemy card...">
+        <div id="searchResults" class="search-results"></div>
+    </div>
+
+    <div class="predict-btn-area">
+        <button id="generateBtn">Generate Counter</button>
+    </div>
+
+    <div id="resultBox" class="result-box"></div>
+
+</div>
+
+<script src="./counter.js"></script>
+</body>
+</html>

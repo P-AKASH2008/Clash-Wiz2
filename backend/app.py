@@ -1,14 +1,17 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 import joblib
 import pandas as pd
 from pathlib import Path
+from counter_engine import find_best_counter
+import os
+
 
 # ----------------------------
 # Setup App
 # ----------------------------
+from flask_cors import CORS
 app = Flask(__name__)
-CORS(app)  # allows frontend to call backend
+CORS(app, origins=["http://localhost:5500"])
 
 # ----------------------------
 # Load Model
@@ -94,3 +97,19 @@ def predict():
 # ----------------------------
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
+
+@app.route("/counter", methods=["POST"])
+def counter():
+
+    data = request.get_json()
+    enemy_deck = data.get("enemyDeck")
+
+    if not enemy_deck or len(enemy_deck) != 8:
+        return jsonify({"error": "enemyDeck must contain 8 cards"}), 400
+
+    best_deck, winrate = find_best_counter(enemy_deck)
+
+    return jsonify({
+        "counterDeck": best_deck,
+        "winChance": winrate
+    })

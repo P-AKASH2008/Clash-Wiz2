@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from backend.services.prediction_service import evaluate_battle
+from backend.services.predict_service import evaluate_battle
 from backend.utils.validators import validate_deck
 from backend.utils.response_builder import success_response, error_response
 

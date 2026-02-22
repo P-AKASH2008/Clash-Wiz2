@@ -8,6 +8,8 @@ let selectedSlot = null;
 const deckA = new Array(8).fill(null);
 const deckB = new Array(8).fill(null);
 
+let lastSelectedElement = null;
+
 /* create empty slots */
 function createSlots() {
     const deckAContainer = document.getElementById("deckA");
@@ -19,8 +21,14 @@ function createSlots() {
         slotA.className = "slot";
         slotA.dataset.index = i;
         slotA.onclick = () => {
+
+            if(lastSelectedElement)
+                lastSelectedElement.classList.remove("selected");
+
+            slotA.classList.add("selected");
+            lastSelectedElement = slotA;
+
             selectedSlot = {team:"A", element:slotA, index:i};
-            console.log("Selected Team A slot", i);
         };
         deckAContainer.appendChild(slotA);
 
@@ -28,8 +36,14 @@ function createSlots() {
         slotB.className = "slot";
         slotB.dataset.index = i;
         slotB.onclick = () => {
+
+            if(lastSelectedElement)
+                lastSelectedElement.classList.remove("selected");
+
+            slotB.classList.add("selected");
+            lastSelectedElement = slotB;
+
             selectedSlot = {team:"B", element:slotB, index:i};
-            console.log("Selected Team B slot", i);
         };
         deckBContainer.appendChild(slotB);
     }

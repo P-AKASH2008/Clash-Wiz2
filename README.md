@@ -155,7 +155,8 @@ P. Akash
 # 📸 Demo Screens
 
 🏠 Home Page  
-![Uploading image.png…]()
+<img width="1919" height="1138" alt="image" src="https://github.com/user-attachments/assets/93cc53f6-3382-43d1-97fb-5057244abf4c" />
+
 
 
 ⚔ Predict Page  

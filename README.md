@@ -17,6 +17,9 @@ ClashWiz is a Machine Learning powered web application that helps players:
 - Get win probability for both teams  
 - ML-based probabilistic outcome prediction  
 
+📸 Screenshot:
+<img width="1907" height="1141" alt="image" src="https://github.com/user-attachments/assets/5152cb8a-0bf6-4474-b193-663705753edc" />
+
 
 ---
 
@@ -27,7 +30,7 @@ ClashWiz is a Machine Learning powered web application that helps players:
 - Displays expected win percentage  
 
 📸 Screenshot:
-(Add Counter Deck Screenshot Here)
+<img width="1919" height="1140" alt="image" src="https://github.com/user-attachments/assets/8ae20c06-c841-48c9-857f-c488020317e0" />
 
 ---
 
@@ -148,3 +151,15 @@ Suhas Lankapalli
 P. Akash  
 
 ---
+
+# 📸 Demo Screens
+
+🏠 Home Page  
+![Uploading image.png…]()
+
+
+⚔ Predict Page  
+(Add Predict Page Screenshot Here)
+
+🛡 Counter Generator  
+(Add Counter Generator Screenshot Here)
